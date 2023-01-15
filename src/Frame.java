@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Frame {
+    static Weapons weapons;
+    static Entity entity;
     public static void main(String[]args)  {
         JFrame j=new JFrame("2D_GAME");//this is window
         Image icon= Toolkit.getDefaultToolkit().getImage("C:\\Users\\PC\\Desktop\\idk\\export\\iconic.PNG");//creates icon for the application
@@ -150,10 +152,16 @@ public class Frame {
                 atk.setBounds(100,600,100,50);
                 atk.addActionListener(new ActionListener(){
                     public void actionPerformed(ActionEvent e) {
-                        /*if(entity.hp>0 && Entity.Player.hp>0) {
+                        if(entity.hp>0 && Entity.Player.hp>0) {
                             Entity.Player.hp -= Math.max(0, Game.damage(entity) - (Entity.Player.def));
-                            entity.hp -= (Game.damage(Entity.Player, weapon));
-                        }*/
+                            entity.hp -= (Game.damage(Entity.Player, weapons));
+                            if (entity.hp<=0){
+                                System.out.println("you won"+entity.name);
+                            }
+                            else{
+                                System.out.println("you lost"+entity.name);
+                            }
+                        }
                     }
                     });
                 j2.add(atk);
