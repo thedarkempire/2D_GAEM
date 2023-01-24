@@ -2,7 +2,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Game {//main class of the game
-
+    static Entity entity;
     static HashMap<Integer, Entity> ent = new HashMap<Integer, Entity>();
     static HashMap<Integer, Equipment> arm = new HashMap<Integer, Equipment>();
     static HashMap<Integer, Equipment> pot = new HashMap<Integer, Equipment>();
@@ -52,28 +52,14 @@ public class Game {//main class of the game
         ent.put(29, Entity.Warrior);
         ent.put(30, Entity.Warrior);
     }
-    public static void fight(Weapons weapon , Equipment armour){
+    public static void fight(Equipment armour){
         int mob = (int) Math.ceil(Math.random() * 30);
-        Entity entity = ent.get(mob);
+        entity = ent.get(mob);
         System.out.println("You have encountered "+entity.name);
 
         Entity.Player.hp+= armour.hp;
         Entity.Player.def+= armour.def;
         System.out.println("You have equipped your armour and ready to fight");
-        fight(entity,weapon);
-    }
-    public static void fight(Entity entity , Weapons weapon){
-        Scanner sc = new Scanner(System.in);
-        while(entity.hp>0 && Entity.Player.hp>0) {
-            Entity.Player.hp -= Math.max(0,damage(entity) - (Entity.Player.def));
-        }
-        if (entity.hp <= 0) {
-            System.out.println("You defeated Your opponent!!! "+entity.name);
-        }else {
-            System.out.println("You have been defeated by "+entity.name);
-        }
-        entity.reset();
-        Entity.Player.reset();
     }
     public static int damage(Entity entity){
         if(entity!=Entity.Mage){
@@ -84,7 +70,8 @@ public class Game {//main class of the game
             else return 0;
         }
         else {
-            return (int)(Entity.Player.hp * 0.3);
+            entity.hp+=(int)(Entity.Player.hp * 0.3);
+            return (int)(Entity.Player.hp * 0.69420);
         }
     }
     public static int damage(Entity entity, Weapons weapon){
@@ -94,12 +81,29 @@ public class Game {//main class of the game
             long crit = Math.round(Math.random() * 100);
             if (crit <= weapon.critRate) {
                 attack = (entity.atk + weapon.atk) * 2;
+                System.out.println("You landed a critical strike!");
             } else {
                 attack = (entity.atk + weapon.atk);
             }
             return attack;
         }else {
             return 0;
+        }
+    }
+    public static void PotionEffect(int choice) {
+        switch (choice) {
+            case 1:
+                Entity.Player.hp += pot.get(1).buff;
+                break;//display you have healed ur self
+            case 2:
+                Entity.Player.atk += pot.get(2).buff;
+                break;//display you have amplified ur power
+            case 3:
+                Entity.Player.def += pot.get(3).buff;
+                break;//display you have fortified ur self
+            case 4:
+                Entity.Player.acc += pot.get(4).buff;
+                break;//display u got better eyes
         }
     }
 }
