@@ -14,10 +14,11 @@ public class Frame {
         j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//closes frame
         j.setResizable(false);
         j.setSize(500, 200);//frame size
-        j.getContentPane().setBackground(Color.BLACK);//applies color
+        j.setContentPane(new JLabel(new ImageIcon("C:\\Users\\PC\\Desktop\\idk\\export\\bg2.PNG")));//applies color
         j.setLocationRelativeTo(null);//centers the frame to the screen
         j.setVisible(true);
         j.setLayout(null);
+        j.pack();
 
 
         Icon icon1 = new ImageIcon("C:\\Users\\PC\\IdeaProjects\\final_game\\src\\pics\\armour.PNG");//another icon
@@ -32,6 +33,7 @@ public class Frame {
                 f1.setVisible(true);
                 f1.setLayout(null);
                 f1.setResizable(false);
+                f1.setLocationRelativeTo(null);
 
                 JButton eqp1 = new JButton("armour1");
                 eqp1.setBounds(100, 50, 400, 100);//size of button and coordinates
@@ -86,6 +88,7 @@ public class Frame {
                 f1.setVisible(true);
                 f1.setLayout(null);
                 f1.setResizable(false);
+                f1.setLocationRelativeTo(null);
 
                 JButton a1 = new JButton("Bow");
                 a1.setBounds(100, 50, 400, 100);//size of button and coordinates
@@ -133,28 +136,38 @@ public class Frame {
             public void actionPerformed(ActionEvent e) {
                 Game.fight(equip);
                 JFrame j2 = new JFrame("GAME");
-                j2.setSize(960, 720);
+                j2.setSize(1280, 720);
                 j2.setResizable(false);
+                j2.setLocationRelativeTo(null);
 
                 j2.setLocationRelativeTo(null);//centers the frame to the screen
                 j2.setVisible(true);
                 j2.setLayout(new BorderLayout());
-                j2.setContentPane(new JLabel(new ImageIcon("C:\\Users\\PC\\Desktop\\idk\\export\\bg.PNG")));
+                j2.setContentPane(new JLabel(new ImageIcon("C:\\Users\\PC\\Desktop\\idk\\export\\bg3.PNG")));
                 j2.setLayout(null);
                 j2.pack();
 
                 ImageIcon hero = new ImageIcon(Entity.Player.sprite());//display the images
                 ImageIcon enemy = new ImageIcon(Game.entity.sprite());
+                JLabel ent=new JLabel("You have encountered "+Game.entity.name,JLabel.CENTER);
+                ent.setBounds(330,100,700,25);
+                ent.setForeground(Color.WHITE);
+                ent.setFont(new Font("Comic Sans", Font.PLAIN, 20));
+                j2.add(ent);
                 JLabel l = new JLabel();
-                l.setBounds(100, 230, 256, 256);
+                l.setBounds(0, 350, 350, 350);
                 l.setIcon(hero);
                 JLabel l1 = new JLabel();
-                l1.setBounds(764, 230, 256, 256);
+                l1.setBounds(764, 350, 350, 350);
                 l1.setIcon(enemy);
                 JLabel t= new JLabel();
-                t.setBounds(100, 486, 100, 25);
+                t.setBounds(100, 486, 150, 25);
+                t.setForeground(Color.WHITE);
+                t.setFont(new Font("Comic Sans", Font.PLAIN, 20));
                 JLabel t1= new JLabel();
-                t1.setBounds(764, 486, 100, 25);
+                t1.setBounds(764, 486, 150, 25);
+                t1.setForeground(Color.WHITE);
+                t1.setFont(new Font("Comic Sans", Font.PLAIN, 20));
                 /*JButton restart=new JButton("restart");
                 restart.setBounds(800,100,100,50);
                 restart.addActionListener(new ActionListener() {
@@ -174,15 +187,15 @@ public class Frame {
                     b3.setEnabled(false);
                 }
                     JButton atk = new JButton("Attack");
-                    atk.setBounds(100, 600, 100, 50);
+                    atk.setBounds(1100, 150, 100, 50);
                     atk.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
                             if (Game.entity.hp > 0 && Entity.Player.hp > 0) {
                                 Entity.Player.hp -= Math.max(0, Game.damage(Game.entity) - 0.15 * (Entity.Player.def));
                                 Game.entity.hp -= (Game.damage(Entity.Player, weapons));
                                 System.out.println("You have " + Entity.Player.hp + " left");
-                                t.setText("Your hp" + Entity.Player.hp);
-                                t1.setText("Enemy hp" + Game.entity.hp);
+                                t.setText("Your hp:" + Entity.Player.hp);
+                                t1.setText("Enemy hp:" + Game.entity.hp);
                                 System.out.println("Your opponent has " + Game.entity.hp + " left");
                                 if (Game.entity.hp <= 0) {
                                     System.out.println("You defeated Your opponent!!! " + Game.entity.name);
@@ -194,15 +207,15 @@ public class Frame {
                     });
                     j2.add(atk);
                     JButton heal = new JButton("Heal");
-                    heal.setBounds(760, 600, 100, 50);
+                    heal.setBounds(1100, 350, 100, 50);
                     heal.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
                             if (Game.entity.hp > 0 && Entity.Player.hp > 0) {
                                 Game.PotionEffect(1);
                                 System.out.println("You've healed yourself");
                                 Entity.Player.hp -= Math.max(0, Game.damage(Game.entity) - 0.4 * (Entity.Player.def));
-                                t.setText("Your hp" + Entity.Player.hp);
-                                t1.setText("Enemy hp" + Game.entity.hp);
+                                t.setText("Your hp:" + Entity.Player.hp);
+                                t1.setText("Enemy hp:" + Game.entity.hp);
                                 System.out.println("You have " + Entity.Player.hp + " left");
                                 System.out.println("Your opponent has " + Game.entity.hp + " left");
                                 if (Game.entity.hp <= 0) {
@@ -215,15 +228,15 @@ public class Frame {
                     });
                     j2.add(heal);
                     JButton forti = new JButton("Fortify");
-                    forti.setBounds(430, 600, 100, 50);
+                    forti.setBounds(1100, 600, 100, 50);
                     forti.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
                             if (Game.entity.hp > 0 && Entity.Player.hp > 0) {
                                 Game.PotionEffect(3);
                                 System.out.println("You increased your defence");
                                 Entity.Player.hp -= Math.max(0, Game.damage(Game.entity) - 0.4 * (Entity.Player.def));
-                                t.setText("Your hp" + Entity.Player.hp);
-                                t1.setText("Enemy hp" + Game.entity.hp);
+                                t.setText("Your hp:" + Entity.Player.hp);
+                                t1.setText("Enemy hp:" + Game.entity.hp);
                                 System.out.println("You have " + Entity.Player.hp + " left");
                                 System.out.println("Your opponent has " + Game.entity.hp + " left");
                                 if (Game.entity.hp <= 0) {
@@ -241,13 +254,6 @@ public class Frame {
             }
         });
         j.add(b3);//adds button to main frame
-
-        JPanel p1 = new JPanel();
-        p1.setBounds(0, 120, 960, 430);
-        p1.setVisible(true);
-        p1.setBackground(Color.BLACK);
-        p1.setLayout(null);
-        j.add(p1);
 
     }
 }
