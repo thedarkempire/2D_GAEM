@@ -11,19 +11,19 @@ public class Frame {
 
     public static void main(String[] args) {
         JFrame j = new JFrame("2D_GAME");//this is the window
-        Image icon = Toolkit.getDefaultToolkit().getImage("C:\\Users\\PC\\Desktop\\idk\\export\\iconic.PNG");//creates icon for the application
+        Image icon = Toolkit.getDefaultToolkit().getImage("C:\\Users\\Debroop\\IdeaProjects\\Game_2D\\src\\pics\\iconic.PNG");//creates icon for the application
         j.setIconImage(icon);
         j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//closes frame
         j.setResizable(false);
         j.setSize(500, 200);//frame size
-        j.setContentPane(new JLabel(new ImageIcon("C:\\Users\\PC\\Desktop\\idk\\export\\bg2.PNG")));//applies color
+        j.setContentPane(new JLabel(new ImageIcon("C:\\Users\\Debroop\\IdeaProjects\\Game_2D\\src\\pics\\bg2.PNG")));//applies color
         j.setLocationRelativeTo(null);//centers the frame to the screen
         j.setVisible(true);
         j.setLayout(null);
         j.pack();
 
 
-        Icon icon1 = new ImageIcon("C:\\Users\\PC\\IdeaProjects\\final_game\\src\\pics\\armour.PNG");//another icon
+        Icon icon1 = new ImageIcon("armour.PNG");//another icon
         JButton b1 = new JButton();
         b1.setBounds(50, 50, 100, 50);//size of button and coordinates
         b1.setIcon(icon1);
@@ -38,9 +38,9 @@ public class Frame {
                 f2.setLocationRelativeTo(null);
                 f2.addWindowListener(new WindowAdapter() {
                     public void windowOpened(WindowEvent windowEvent) {
-                b1.setEnabled(false);
+                        b1.setEnabled(false);
                     }
-                    });
+                });
                 f2.addWindowListener(new WindowAdapter() {
                     public void windowClosed(WindowEvent e) {
                         b1.setEnabled(true);
@@ -87,7 +87,7 @@ public class Frame {
         });
         j.add(b1);//adds button to main frame
 
-        Icon icon2 = new ImageIcon("C:\\Users\\PC\\IdeaProjects\\final_game\\src\\pics\\equipment.PNG");
+        Icon icon2 = new ImageIcon("C:\\Users\\Debroop\\IdeaProjects\\Game_2D\\src\\pics\\equipment.PNG");
         JButton b2 = new JButton();
         b2.setBounds(200, 50, 100, 50);//size of button and coordinates
         b2.setIcon(icon2);
@@ -176,7 +176,7 @@ public class Frame {
                 j2.setLocationRelativeTo(null);//centers the frame to the screen
                 j2.setVisible(true);
                 j2.setLayout(new BorderLayout());
-                j2.setContentPane(new JLabel(new ImageIcon("C:\\Users\\PC\\Desktop\\idk\\export\\bg3.PNG")));
+                j2.setContentPane(new JLabel(new ImageIcon("C:\\Users\\Debroop\\IdeaProjects\\Game_2D\\src\\pics\\bg3.PNG")));
                 j2.setLayout(null);
                 j2.pack();
 
@@ -194,23 +194,24 @@ public class Frame {
                 l1.setBounds(764, 350, 350, 350);
                 l1.setIcon(enemy);
                 JLabel t= new JLabel();
-                t.setBounds(100, 486, 150, 25);
+                t.setBounds(150, 600, 150, 25);
                 t.setForeground(Color.WHITE);
                 t.setFont(new Font("Comic Sans", Font.PLAIN, 20));
                 JLabel t1= new JLabel();
-                t1.setBounds(764, 486, 150, 25);
+                t1.setBounds(750, 600, 150, 25);
                 t1.setForeground(Color.WHITE);
                 t1.setFont(new Font("Comic Sans", Font.PLAIN, 20));
                 JLabel t2=new JLabel();
                 t2.setText("");
                 JButton restart=new JButton("exit");
-                restart.setBounds(1150,50,100,50);
+                restart.setBounds(1100,50,100,50);
                 restart.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    Entity.Player.reset();
-                    Game.entity.reset();
-                j2.dispose();
-                }
+                    public void actionPerformed(ActionEvent e) {
+                        Entity.Player.reset();
+                        Game.entity.reset();
+                        j2.dispose();
+                    }
+
                 });
                 j2.add(restart);
 
@@ -221,81 +222,153 @@ public class Frame {
                 j2.setDefaultCloseOperation(j2.DISPOSE_ON_CLOSE);//closes the current frame without closing the main frame
                 t.setText("Your hp:" + Math.max(0, Entity.Player.hp));
                 t1.setText("Enemy hp:" + Math.max(0, Game.entity.hp));
-                    JButton atk = new JButton("Attack");
-                    atk.setBounds(1100, 150, 100, 50);
-                    atk.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-                            if (Game.entity.hp > 0 && Entity.Player.hp > 0) {
-                                Entity.Player.hp -= Math.max(0, Game.damage(Game.entity) - 0.15 * (Entity.Player.def));
-                                Game.entity.hp -= (Game.damage(Entity.Player, weapons));
-                                System.out.println("You have " + Entity.Player.hp + " left");
-                                t.setText("Your hp:" + Entity.Player.hp);
-                                t1.setText("Enemy hp:" + Math.max(0, Game.entity.hp));
-                                System.out.println("Your opponent has " +Math.max(0, Game.entity.hp)+ " left");
-                                if (Game.entity.hp <= 0) {
-                                    System.out.println("You defeated Your opponent!!! " + Game.entity.name);
-                                    Entity.Player.reset();
-                                    Game.entity.reset();
-                                } else if(Entity.Player.hp <= 0) {
-                                    System.out.println("You have been defeated by " + Game.entity.name);
-                                    Entity.Player.reset();
-                                    Game.entity.reset();
-                                }
+                JButton atk = new JButton("Attack");
+                atk.setBounds(1100, 200, 100, 50);
+                atk.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (Game.entity.hp > 0 && Entity.Player.hp > 0) {
+                            Entity.Player.hp -= Math.max(0, Game.damage(Game.entity) - 0.15 * (Entity.Player.def));
+                            Game.entity.hp -= (Game.damage(Entity.Player, weapons));
+                            System.out.println("You have " + Entity.Player.hp + " left");
+                            t.setText("Your hp:" + Entity.Player.hp);
+                            t1.setText("Enemy hp:" + Math.max(0, Game.entity.hp));
+                            System.out.println("Your opponent has " +Math.max(0, Game.entity.hp)+ " left");
+                            if(Game.entity.hp<=0&&Entity.Player.hp<=0){
+                                JFrame draw=new JFrame();
+                                JLabel draw1=new JLabel("Draw",JLabel.CENTER);
+                                draw1.setForeground(Color.WHITE);
+                                draw.setSize(300,150);
+                                draw.setUndecorated(true);
+                                draw.setLocationRelativeTo(null);
+                                draw.setResizable(false);
+                                draw.setVisible(true);
+                                draw.setContentPane(new JLabel(new ImageIcon("C:\\Users\\Debroop\\IdeaProjects\\Game_2D\\src\\pics\\winlose.PNG")));
+                                draw1.setBounds(100,50,100,25);
+                                draw.add(draw1);
+                                draw.pack();
+                                JButton reset = new JButton("reset");
+                                reset.setBounds(100,100,100,50);
+                                reset.addActionListener(new ActionListener() {
+                                    public void actionPerformed(ActionEvent e) {
+                                        Entity.Player.reset();
+                                        Game.entity.reset();
+                                        j2.dispose();
+                                    }
+                                });
+                                draw.add(reset);
+                                j2.addWindowListener(new WindowAdapter() {
+                                    public void windowClosed(WindowEvent e) {
+                                        draw.dispose();
+                                    }
+                                });
+                            }
+                            else if (Game.entity.hp <= 0) {
+                                System.out.println("You defeated Your opponent!!! " + Game.entity.name);
+                                JFrame win=new JFrame();
+                                JLabel win1=new JLabel("YOU WIN!!!!",JLabel.CENTER);
+                                win1.setForeground(Color.WHITE);
+                                win.setSize(300,150);
+                                win.setUndecorated(true);
+                                win.setLocationRelativeTo(null);
+                                win.setResizable(false);
+                                win.setVisible(true);
+                                win.setContentPane(new JLabel(new ImageIcon("C:\\Users\\Debroop\\IdeaProjects\\Game_2D\\src\\pics\\winlose.PNG")));
+                                win1.setBounds(100,50,100,25);
+                                win.add(win1);
+                                win.pack();
+                                JButton reset = new JButton("reset");
+                                reset.setBounds(100,100,100,50);
+                                reset.addActionListener(new ActionListener() {
+                                    public void actionPerformed(ActionEvent e) {
+                                        Entity.Player.reset();
+                                        Game.entity.reset();
+                                        j2.dispose();
+                                    }
+                                });
+                                win.add(reset);
+                                j2.addWindowListener(new WindowAdapter() {
+                                    public void windowClosed(WindowEvent e) {
+                                        win.dispose();
+                                    }
+                                });
+                            }
+                            else if(Entity.Player.hp <= 0) {
+                                System.out.println("You have been defeated by " + Game.entity.name);
+                                JFrame lose=new JFrame();
+                                JLabel lose1=new JLabel("Game Over!",JLabel.CENTER);
+                                lose1.setForeground(Color.WHITE);
+                                lose.setSize(300,150);
+                                lose.setUndecorated(true);
+                                lose.setLocationRelativeTo(null);
+                                lose.setResizable(false);
+                                lose.setVisible(true);
+                                lose.setContentPane(new JLabel(new ImageIcon("C:\\Users\\Debroop\\IdeaProjects\\Game_2D\\src\\pics\\winlose.PNG")));
+                                lose1.setBounds(100,50,100,25);
+                                lose.add(lose1);
+                                lose.pack();
+                                JButton reset = new JButton("reset");
+                                reset.setBounds(100,100,100,50);
+                                reset.addActionListener(new ActionListener() {
+                                    public void actionPerformed(ActionEvent e) {
+                                        Entity.Player.reset();
+                                        Game.entity.reset();
+                                        j2.dispose();
+                                    }
+                                });
+                                lose.add(reset);
+                                j2.addWindowListener(new WindowAdapter() {
+                                    public void windowClosed(WindowEvent e) {
+                                        lose.dispose();
+                                    }
+                                });
                             }
                         }
-                    });
-                    j2.add(atk);
-                    JButton heal = new JButton("Heal");
-                    heal.setBounds(1100, 350, 100, 50);
-                    heal.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-                            if (Game.entity.hp > 0 && Entity.Player.hp > 0) {
-                                Game.PotionEffect(1);
-                                System.out.println("You've healed yourself");
-                                Entity.Player.hp -= Math.max(0, Game.damage(Game.entity) - 0.4 * (Entity.Player.def));
-                                t.setText("Your hp:" + Entity.Player.hp);
-                                t1.setText("Enemy hp:" + Game.entity.hp);
-                                System.out.println("You have " + Entity.Player.hp + " left");
-                                System.out.println("Your opponent has " + Game.entity.hp + " left");
-                                if (Game.entity.hp <= 0) {
-                                    System.out.println("You defeated Your opponent!!! " + Game.entity.name);
-                                    Entity.Player.reset();
-                                    Game.entity.reset();
-                                } else if(Entity.Player.hp <= 0) {
-                                    System.out.println("You have been defeated by " + Game.entity.name);
-                                    Entity.Player.reset();
-                                    Game.entity.reset();
-                                }
+                    }
+                });
+                j2.add(atk);
+                JButton heal = new JButton("Heal");
+                heal.setBounds(1100, 350, 100, 50);
+                heal.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (Game.entity.hp > 0 && Entity.Player.hp > 0) {
+                            Game.PotionEffect(1);
+                            System.out.println("You've healed yourself");
+                            Entity.Player.hp -= Math.max(0, Game.damage(Game.entity) - 0.4 * (Entity.Player.def));
+                            t.setText("Your hp:" + Entity.Player.hp);
+                            t1.setText("Enemy hp:" + Game.entity.hp);
+                            System.out.println("You have " + Entity.Player.hp + " left");
+                            System.out.println("Your opponent has " + Game.entity.hp + " left");
+                            if (Game.entity.hp <= 0) {
+                                System.out.println("You defeated Your opponent!!! " + Game.entity.name);
+                            } else if(Entity.Player.hp <= 0) {
+                                System.out.println("You have been defeated by " + Game.entity.name);
                             }
                         }
-                    });
-                    j2.add(heal);
-                    JButton forti = new JButton("Fortify");
-                    forti.setBounds(1100, 600, 100, 50);
-                    forti.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-                            if (Game.entity.hp > 0 && Entity.Player.hp > 0) {
-                                Game.PotionEffect(3);
-                                System.out.println("You increased your defence");
-                                Entity.Player.hp -= Math.max(0, Game.damage(Game.entity) - 0.4 * (Entity.Player.def));
-                                t.setText("Your hp:" + Entity.Player.hp);
-                                t1.setText("Enemy hp:" + Game.entity.hp);
-                                System.out.println("You have " + Entity.Player.hp + " left");
-                                System.out.println("Your opponent has " + Game.entity.hp + " left");
-                                if (Game.entity.hp <= 0) {
-                                    System.out.println("You defeated Your opponent!!! " + Game.entity.name);
-                                    Entity.Player.reset();
-                                    Game.entity.reset();
-                                } else if(Entity.Player.hp <= 0) {
-                                    System.out.println("You have been defeated by " + Game.entity.name);
-                                    Entity.Player.reset();
-                                    Game.entity.reset();
-                                }
+                    }
+                });
+                j2.add(heal);
+                JButton forti = new JButton("Fortify");
+                forti.setBounds(1100, 500, 100, 50);
+                forti.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (Game.entity.hp > 0 && Entity.Player.hp > 0) {
+                            Game.PotionEffect(3);
+                            System.out.println("You increased your defence");
+                            Entity.Player.hp -= Math.max(0, Game.damage(Game.entity) - 0.4 * (Entity.Player.def));
+                            t.setText("Your hp:" + Entity.Player.hp);
+                            t1.setText("Enemy hp:" + Game.entity.hp);
+                            System.out.println("You have " + Entity.Player.hp + " left");
+                            System.out.println("Your opponent has " + Game.entity.hp + " left");
+                            if (Game.entity.hp <= 0) {
+                                System.out.println("You defeated Your opponent!!! " + Game.entity.name);
+                            } else if(Entity.Player.hp <= 0) {
+                                System.out.println("You have been defeated by " + Game.entity.name);
                             }
                         }
-                    });
-                    forti.setLayout(null);
-                    j2.add(forti);
+                    }
+                });
+                forti.setLayout(null);
+                j2.add(forti);
 
 
             }

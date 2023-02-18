@@ -22,7 +22,7 @@ public class Entity {
     }
 
     public String sprite(){
-        return "C:\\Users\\PC\\IdeaProjects\\final_game\\src\\pics\\"+name+".PNG";
+        return "C:\\Users\\Debroop\\IdeaProjects\\Game_2D\\src\\pics\\"+name+".PNG";
     }
 
     static Entity Player = new Entity(1000, 100, 200, "Hero1", 0);//You yourself
